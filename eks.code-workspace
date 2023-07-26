@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../Users/AB33960/ws/eks"
+		},
+		{
+			"path": "../../Users/AB33960/ws/personal/producers-api-platform"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.compile.nullAnalysis.mode": "automatic",
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
+}

@@ -1,0 +1,12 @@
+.idea/.gitignore
+.idea/.name
+.idea/aws.xml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/kotlinc.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/libraries/KotlinJavaRuntime.xml
+out/production/techforlife/main/resources/application.conf
+out/production/techforlife/main/resources/application.properties

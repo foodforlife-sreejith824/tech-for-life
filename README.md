@@ -24,14 +24,17 @@ sequenceDiagram
     dist ->>+ sys : Register to start use APIs
     sys -->>- dist : Client ID, creds  
 
-    sys ->> dist : Pushes new items to distributers (Async)
-    sys ->> med : Pushes new items to Social media
+    sys ->> dist : Pushes new items to distributers (stream)
     
+    sys ->> med : Pushes new items to Social media
+    sys ->> sys : Personalization
+    sys ->> med : Show customized availability of items in Social media
+
     con ->> med : Knows availability of food.
-    con ->> dist : Make order
+    con ->>+ dist : Make order
     dist ->>+ sys : Creat Order
     sys -->>- dist : Order Id
-    dist -->> con : Order details (item, date & time confirmation)
+    dist -->>- con : Order details (item, date & time confirmation)
 ```
 
 ## Getting started
