@@ -1,6 +1,6 @@
 # Simple example of CI to build a Docker container and push it to Amazon ECR
 variables:
-  DOCKER_REGISTRY: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife
+  DOCKER_REGISTRY: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife  
   APP_NAME: producer-api
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
@@ -36,6 +36,5 @@ package:
     - docker --version
   script:
     - pwd
-    - cd producer && docker build -t $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID .
-    - docker push $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID
-
+    - cd producer && docker build -t $DOCKER_REGISTRY:$CI_PIPELINE_IID .
+    - docker push $DOCKER_REGISTRY:$CI_PIPELINE_IID
