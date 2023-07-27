@@ -1,6 +1,6 @@
 # Simple example of CI to build a Docker container and push it to Amazon ECR
 variables:
-  DOCKER_REGISTRY: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife/producer/api
+  DOCKER_REGISTRY: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife
   APP_NAME: producer-api
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
