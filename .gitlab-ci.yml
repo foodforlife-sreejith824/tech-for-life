@@ -6,16 +6,12 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 
-image: docker:latest
-services:
-  - docker:dind
-
 stages:
   - build
   - package
 
 build:
-  image: gradle:5.0-jdk8-alpine
+  image: gradle:7.3.2-jdk17-alpine
   stage: build
   script:
     - cd producer && gradle build
@@ -25,6 +21,7 @@ build:
       - build/libs/*.jar
 
 package:
+  stage: package
   image: 
     name: docker:latest
   services:
