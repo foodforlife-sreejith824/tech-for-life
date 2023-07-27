@@ -11,8 +11,8 @@ stages:
   - package
 
 build:
-  image: gradle:5.0-jdk8-alpine
   stage: build
+  image: gradle:5.0-jdk8-alpine
   script:
     - cd producer && gradle build
     - pwd
@@ -21,6 +21,7 @@ build:
       - build/libs/*.jar
 
 package:
+  stage: package
   image: 
     name: docker:latest
   services:
