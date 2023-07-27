@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: techforlife-producerapi-deployment
+  namespace: development-ns
+  labels:
+    app: techforlife-producerapi-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: techforlife-producerapi-app
+  template:
+    metadata:
+      labels:
+        app: techforlife-producerapi-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/arch
+                operator: In
+                values:
+                - amd64
+                - arm64
+      containers:
+      - name: producer-api
+        image: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife/producer/api:latest
+        ports:
+        - name: http
+          containerPort: 8080
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux
+---
+    
+apiVersion: v1
+kind: Service
+metadata:
+  name: techforlife-producerapi-service
+  namespace: development-ns
+  labels:
+    app: techforlife-producerapi-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: techforlife-producerapi-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080      
