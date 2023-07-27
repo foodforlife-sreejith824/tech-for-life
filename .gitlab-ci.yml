@@ -6,8 +6,25 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
 
-publish:
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+  - package
+
+build:
+  image: gradle:5.0-jdk8-alpine
   stage: build
+  script:
+    - cd producer && gradle build
+    - pwd
+  artifacts:
+    paths:
+      - build/libs/*.jar
+
+package:
   image: 
     name: docker:latest
   services:
@@ -20,5 +37,7 @@ publish:
     - docker info
     - docker --version
   script:
+    - pwd
     - cd producer && docker build -t $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID .
     - docker push $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID
+
