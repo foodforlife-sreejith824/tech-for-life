@@ -19,7 +19,7 @@ build:
     - pwd
   artifacts:
     paths:
-      - build/libs/*.jar
+      - producer/build/libs/*.jar
 
 package:
   stage: package
