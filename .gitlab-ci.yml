@@ -45,7 +45,7 @@ producer-build:
 producer-package:
   stage: package
   extends: .producer
-  needs: ["producer-build"]
+  dependencies: ["producer-build"]
   image: 
     name: docker:latest
   services:
