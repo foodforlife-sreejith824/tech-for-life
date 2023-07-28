@@ -27,7 +27,7 @@ spec:
                 - arm64
       containers:
       - name: producer-api
-        image: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife:latest
+        image: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api:latest
         ports:
         - name: http
           containerPort: 8080

@@ -16,3 +16,5 @@ kubectl -n development-ns describe service techforlife-producerapi-service
 
 kubectl delete -f techforlife-nginx.yaml
 eksctl delete cluster -f eksctl.yaml
+
+a49b4af4611584106af58508133128ad-1956568138.eu-north-1.elb.amazonaws.com:8080/swagger-ui.html

@@ -24,24 +24,12 @@ stages:
         - $RULES_CHANGES_PATH
     - when: manual
       allow_failure: true
-
+############################################################################
 .producer:
   extends: .base-rules
   variables:
     RULES_CHANGES_PATH: "producer/**/*"   
     APP_NAME: techforlife-producer-api   
-
-.inventory:
-  extends: .base-rules
-  variables:
-    RULES_CHANGES_PATH: "inventory/**/*"    
-    APP_NAME: techforlife-inventory-api
-
-.consumer:
-  extends: .base-rules
-  variables:
-    RULES_CHANGES_PATH: "consumer/**/*" 
-    APP_NAME: techforlife-consumer-api       
 
 producer-build:
   image: gradle:7.3.2-jdk17-alpine
@@ -57,6 +45,7 @@ producer-build:
 producer-package:
   stage: package
   extends: .producer
+  needs: ["producer-build"]
   image: 
     name: docker:latest
   services:
@@ -73,6 +62,14 @@ producer-package:
     - cd producer && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
     - docker push $DOCKER_REGISTRY/$APP_NAME:latest
 
+######################################################################################
+
+
+.inventory:
+  extends: .base-rules
+  variables:
+    RULES_CHANGES_PATH: "inventory/**/*"    
+    APP_NAME: techforlife-inventory-api
 
 inventory-build:
   image: gradle:7.3.2-jdk17-alpine
@@ -88,6 +85,7 @@ inventory-build:
 inventory-package:
   stage: package
   extends: .inventory
+  needs: ["inventory-build"]
   image: 
     name: docker:latest
   services:
@@ -104,12 +102,18 @@ inventory-package:
     - cd inventory && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
     - docker push $DOCKER_REGISTRY/$APP_NAME:latest
 
+######################################################################################
+
+.consumer:
+  extends: .base-rules
+  variables:
+    RULES_CHANGES_PATH: "consumer/**/*" 
+    APP_NAME: techforlife-consumer-api       
 
 consumer-build:
   image: gradle:7.3.2-jdk17-alpine
   stage: build
   extends: .consumer
-  script:
     - cd consumer && gradle build
     - pwd
   artifacts:
@@ -119,6 +123,7 @@ consumer-build:
 consumer-package:
   stage: package
   extends: .consumer
+  needs: ["consumer-build"]
   image: 
     name: docker:latest
   services:
@@ -134,3 +139,5 @@ consumer-package:
     - pwd
     - cd consumer && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
     - docker push $DOCKER_REGISTRY/$APP_NAME:latest
+
+######################################################################################    
