@@ -45,7 +45,9 @@ producer-build:
 producer-package:
   stage: package
   extends: .producer
-  dependencies: ["producer-build"]
+  needs: ["producer-build"]
+  dependencies: 
+    - producer-build
   image: 
     name: docker:latest
   services:
@@ -86,6 +88,8 @@ inventory-package:
   stage: package
   extends: .inventory
   needs: ["inventory-build"]
+  dependencies: 
+    - inventory-build
   image: 
     name: docker:latest
   services:
@@ -125,6 +129,8 @@ consumer-package:
   stage: package
   extends: .consumer
   needs: ["consumer-build"]
+  dependencies: 
+    - consumer-build  
   image: 
     name: docker:latest
   services:
