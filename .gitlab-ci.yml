@@ -114,6 +114,7 @@ consumer-build:
   image: gradle:7.3.2-jdk17-alpine
   stage: build
   extends: .consumer
+  script:
     - cd consumer && gradle build
     - pwd
   artifacts:
