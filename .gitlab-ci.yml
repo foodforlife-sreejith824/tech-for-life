@@ -5,15 +5,48 @@ variables:
   DOCKER_HOST: tcp://docker:2375
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: ""
+  RULES_CHANGES_PATH: "**/*"
 
 stages:
   - build
   - package
 
-build:
+.base-rules:
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "push"'
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - $RULES_CHANGES_PATH
+    - when: manual
+      allow_failure: true
+
+.producer:
+  extends: .base-rules
+  variables:
+    RULES_CHANGES_PATH: "producer/**/*"   
+    APP_NAME: techforlife-producer-api   
+
+.inventory:
+  extends: .base-rules
+  variables:
+    RULES_CHANGES_PATH: "inventory/**/*"    
+    APP_NAME: techforlife-inventory-api
+
+.consumer:
+  extends: .base-rules
+  variables:
+    RULES_CHANGES_PATH: "consumer/**/*" 
+    APP_NAME: techforlife-consumer-api       
+
+producer-build:
   image: gradle:7.3.2-jdk17-alpine
   stage: build
-
+  extends: .producer
   script:
     - cd producer && gradle build
     - pwd
@@ -21,8 +54,9 @@ build:
     paths:
       - producer/build/libs/*.jar
 
-package:
+producer-package:
   stage: package
+  extends: .producer
   image: 
     name: docker:latest
   services:
@@ -37,4 +71,66 @@ package:
   script:
     - pwd
     - cd producer && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
+    - docker push $DOCKER_REGISTRY/$APP_NAME:latest
+
+
+inventory-build:
+  image: gradle:7.3.2-jdk17-alpine
+  stage: build
+  extends: .inventory
+  script:
+    - cd inventory && gradle build
+    - pwd
+  artifacts:
+    paths:
+      - inventory/build/libs/*.jar
+
+inventory-package:
+  stage: package
+  extends: .inventory
+  image: 
+    name: docker:latest
+  services:
+    - docker:19-dind
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip
+    - pip install awscli
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - aws --version
+    - docker info
+    - docker --version
+  script:
+    - pwd
+    - cd inventory && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
+    - docker push $DOCKER_REGISTRY/$APP_NAME:latest
+
+
+consumer-build:
+  image: gradle:7.3.2-jdk17-alpine
+  stage: build
+  extends: .consumer
+  script:
+    - cd consumer && gradle build
+    - pwd
+  artifacts:
+    paths:
+      - consumer/build/libs/*.jar
+
+consumer-package:
+  stage: package
+  extends: .consumer
+  image: 
+    name: docker:latest
+  services:
+    - docker:19-dind
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip
+    - pip install awscli
+    - aws ecr get-login-password | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - aws --version
+    - docker info
+    - docker --version
+  script:
+    - pwd
+    - cd consumer && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
     - docker push $DOCKER_REGISTRY/$APP_NAME:latest
