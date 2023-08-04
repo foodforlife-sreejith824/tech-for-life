@@ -5,10 +5,6 @@ images:
 - name: techforlife-producer-api-image
   newName: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
   newTag: latest
-- name: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
-  newName: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
-  newTag: "23"
-
 
 resources:
 - deployment.yaml
