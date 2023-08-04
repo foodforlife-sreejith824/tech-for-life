@@ -103,7 +103,13 @@ paths:
               description: Exact city of the producers
               required: false
               schema:
-                type: string                         
+                type: string 
+            - name: organizationNumber
+              in: query
+              description: organization numner of producer
+              required: false
+              schema:
+                type: string                                         
           responses:
             '200':
               description: successful operation
