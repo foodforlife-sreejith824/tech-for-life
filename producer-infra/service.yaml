@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: techforlife-producerapi-service
+  namespace: development-ns
+  labels:
+    app: techforlife-producerapi-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: techforlife-producerapi-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080      
