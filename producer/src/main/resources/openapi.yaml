@@ -110,6 +110,13 @@ paths:
               required: false
               schema:
                 type: string                                         
+            - name: startDate
+              in: query
+              description: Start date of onboarding
+              required: false
+              schema:
+                type: string  
+                format: date
           responses:
             '200':
               description: successful operation
