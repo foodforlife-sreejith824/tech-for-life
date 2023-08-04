@@ -1,0 +1,8 @@
+bases:
+- ..
+patchesStrategicMerge:
+- techforlife-producerapi.yaml
+images:
+- name: techforlife-producer-api-image
+  newName: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
+  newTag: latest
