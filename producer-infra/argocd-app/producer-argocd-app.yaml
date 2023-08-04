@@ -17,7 +17,7 @@ spec:
   source:
     repoURL: https://gitlab.com/sreejith824/techforlife.git  # Can point to either a Helm chart repo or a git repo.
     targetRevision: main  # For Helm, this refers to the chart version.
-    path: producer/IaC  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
+    path: producer-infra  # This has no meaning for Helm charts pulled directly from a Helm repo instead of git.
 
   # Destination cluster and namespace to deploy the application
   destination:
