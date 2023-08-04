@@ -30,7 +30,7 @@ stages:
   extends: .base-rules
   variables:
     RULES_CHANGES_PATH: "producer/**/*"   
-    APP_NAME: techforlife_producer_api   
+    APP_NAME: techforlife-producer-api   
 
 producer-build:
   image: gradle:7.3.2-jdk17-alpine
@@ -71,7 +71,7 @@ producer-package:
   extends: .base-rules
   variables:
     RULES_CHANGES_PATH: "inventory/**/*"    
-    APP_NAME: techforlife_inventory_api
+    APP_NAME: techforlife-inventory-api
 
 inventory-build:
   image: gradle:7.3.2-jdk17-alpine
@@ -112,7 +112,7 @@ inventory-package:
   extends: .base-rules
   variables:
     RULES_CHANGES_PATH: "consumer/**/*" 
-    APP_NAME: techforlife_consumer_api       
+    APP_NAME: techforlife-consumer-api       
 
 consumer-build:
   image: gradle:7.3.2-jdk17-alpine
