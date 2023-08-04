@@ -24,6 +24,7 @@ stages:
         - $RULES_CHANGES_PATH
     - when: manual
       allow_failure: true
+
 ############################################################################
 .producer:
   extends: .base-rules
@@ -61,11 +62,10 @@ producer-package:
     - docker --version
   script:
     - pwd
-    - cd producer && docker build -t $DOCKER_REGISTRY/$APP_NAME:latest .
-    - docker push $DOCKER_REGISTRY/$APP_NAME:latest
+    - cd producer && docker build -t $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID .
+    - docker push $DOCKER_REGISTRY/$APP_NAME:$CI_PIPELINE_IID
 
 ######################################################################################
-
 
 .inventory:
   extends: .base-rules
