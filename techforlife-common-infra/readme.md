@@ -11,9 +11,9 @@ kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
 echo Wnd4aFhXSGxkdHgtbm9qTg== | base64 --decode
 
 ## ECR
-aws ecr create-repository --repository-name techforlife-producer-api
-aws ecr create-repository --repository-name techforlife-inventory-api
-aws ecr create-repository --repository-name techforlife-consumer-api
+aws ecr create-repository --repository-name techforlife_producer_api
+aws ecr create-repository --repository-name techforlife_inventory_api
+aws ecr create-repository --repository-name techforlife_consumer_api
 
 ## Clean Up
 eksctl delete cluster -f eksctl.yaml
