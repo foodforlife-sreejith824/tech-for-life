@@ -16,6 +16,11 @@ HDibFS6YbWeowvTd
 ## ArgoCD Image updater
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 
+kubectl create -n argocd secret docker-registry dockerhub-secret \
+  --docker-username someuser \
+  --docker-password s0m3p4ssw0rd \
+  --docker-registry "https://registry-1.docker.io"
+
 
 ## ECR
 aws ecr create-repository --repository-name techforlife_producer_api
