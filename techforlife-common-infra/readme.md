@@ -9,17 +9,16 @@ kubectl -n argocd describe service argocd-server
 ### Get credential
 admin
 kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
-echo Wnd4aFhXSGxkdHgtbm9qTg== | base64 --decode
+echo NnVYWUx6TldUZHkyWmplag== | base64 --decode
 
-HDibFS6YbWeowvTd
+6uXYLzNWTdy2Zjej
 
 ## ArgoCD Image updater
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
-
-kubectl create -n argocd secret docker-registry dockerhub-secret \
-  --docker-username someuser \
-  --docker-password s0m3p4ssw0rd \
-  --docker-registry "https://registry-1.docker.io"
+kubectl apply -n argocd -f argocd-image-updater.yaml
+kubectl -n argocd create secret generic git-creds \
+  --from-literal=username=12593302 \
+  --from-literal=password=glpat-cyEcJq4XSXCaSyP5uX86
 
 
 ## ECR

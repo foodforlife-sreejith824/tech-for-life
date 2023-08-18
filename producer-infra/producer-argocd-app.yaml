@@ -11,12 +11,12 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: producer=157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
     argocd-image-updater.argoproj.io/producer.update-strategy: latest
-    argocd-image-updater.argoproj.io/producer.pull-secret: pullsecret:argocd/regcred    
+    argocd-image-updater.argoproj.io/producer.pull-secret: pullsecret:argocd/regcred   
+    #argocd-image-updater.argoproj.io/producer.pull-secret: secret:argocd/aws-ecr-creds#creds 
     argocd-image-updater.argoproj.io/producer.force-update: "true"
-    argocd-image-updater.argoproj.io/producer.kustomize.image-name: techforlife-producer-api-image
-    argocd-image-updater.argoproj.io/techforlife-producer-api-image.pull-secret: <secret_ref>
-    argocd-image-updater.argoproj.io/write-back-method: git  # all git options are supported    
-    argocd-image-updater.argoproj.io/write-back-target: "kustomization:producer-infra"
+    argocd-image-updater.argoproj.io/producer.kustomize.image-name: techforlife-producer-api-image      
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
+    argocd-image-updater.argoproj.io/write-back-target: "kustomization:/producer-infra"
     
 spec:
   # The project the application belongs to.
