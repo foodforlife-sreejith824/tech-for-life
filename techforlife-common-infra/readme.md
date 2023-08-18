@@ -17,7 +17,7 @@ echo NnVYWUx6TldUZHkyWmplag== | base64 --decode
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
 kubectl apply -n argocd -f argocd-image-updater.yaml
 kubectl -n argocd create secret generic git-creds \
-  --from-literal=username=12593302 \
+  --from-literal=username=sreejith824 \
   --from-literal=password=glpat-cyEcJq4XSXCaSyP5uX86
 
 
