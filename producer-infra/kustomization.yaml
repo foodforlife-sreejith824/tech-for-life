@@ -4,7 +4,10 @@ kind: Kustomization
 images:
 - name: techforlife-producer-api-image
   newName: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
-  newTag: "32"
+  newTag: latest
+- name: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
+  newName: 157975149712.dkr.ecr.eu-north-1.amazonaws.com/techforlife-producer-api
+  newTag: "34"  
 
 resources:
 - deployment.yaml
