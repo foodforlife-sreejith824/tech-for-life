@@ -10,3 +10,6 @@
 .idea/libraries/KotlinJavaRuntime.xml
 out/production/techforlife/main/resources/application.conf
 out/production/techforlife/main/resources/application.properties
+/.idea/
+.DS_Store
+.vscode/settings.json

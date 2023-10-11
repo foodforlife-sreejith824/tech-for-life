@@ -16,7 +16,7 @@ sequenceDiagram
     prod ->>+ sys : Register to start use APIs
     sys -->>- prod : Client ID, creds  
 
-    prod ->>+ sys : Onboard new Producer - Address, Domain (meal/grocerry/bakery)
+    prod ->>+ sys : Onboard new Producer with Address and Domain (meal/grocery/bakery)
     sys -->>- prod : Producer id
     prod ->>+ sys : Add Items : Count, promotional?
     sys -->>- prod : Items
@@ -24,7 +24,7 @@ sequenceDiagram
     dist ->>+ sys : Register to start use APIs
     sys -->>- dist : Client ID, creds  
 
-    sys ->> dist : Pushes new items to distributers (stream)
+    sys ->> dist : Pushes new items to distributers  (stream)
     
     sys ->> med : Pushes new items to Social media
     sys ->> sys : Personalization
@@ -32,7 +32,7 @@ sequenceDiagram
 
     con ->> med : Knows availability of food.
     con ->>+ dist : Make order
-    dist ->>+ sys : Creat Order
+    dist ->>+ sys : Create Order
     sys -->>- dist : Order Id
     dist -->>- con : Order details (item, date & time confirmation)
 ```
