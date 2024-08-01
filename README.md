@@ -1,6 +1,6 @@
 # techforlife
 
-## Design
+## Use casse - Mind Map
 
 ```mermaid
 mindmap
@@ -31,6 +31,7 @@ mindmap
             
         Consumers ((Consumers))
             Register as a user
+                Social media SignUp
             View personalized items
                 location
                 food preference
@@ -42,7 +43,7 @@ mindmap
 
 ```
 
-
+## Phase 1 - Social Media
 
 ```mermaid
 
@@ -50,31 +51,13 @@ sequenceDiagram
     autonumber
     participant prod as Food Producer
     participant sys as TechForLife
-    
-    participant dist as Food Distributor
     participant med as Social media
     participant con as Food Consumer
 
-    prod ->>+ sys : Register to start use APIs
-    sys -->>- prod : Client ID, creds  
-
-    prod ->>+ sys : Onboard new Producer with Address and Domain (meal/grocery/bakery)
-    sys -->>- prod : Producer id
-    prod ->>+ sys : Add Items : Count, promotional?
-    sys -->>- prod : Items
-    
-    dist ->>+ sys : Register to start use APIs
-    sys -->>- dist : Client ID, creds  
-
-    sys ->> dist : Pushes new items to distributers  (stream)
-    
-    sys ->> med : Pushes new items to Social media
-    sys ->> sys : Personalization
-    sys ->> med : Show customized availability of items in Social media
-
-    con ->> med : Knows availability of food.
-    con ->>+ dist : Make order
-    dist ->>+ sys : Create Order
-    sys -->>- dist : Order Id
-    dist -->>- con : Order details (item, date & time confirmation)
+    prod ->>+ sys : Register as a Producer
+    prod ->>+ sys : Onboard Producer with Address and Domains (meal/grocery/bakery)
+    prod ->>+ sys : Publish Items to sell : Items, quantity, Price, Promotions    
+    sys ->> med : Publish avaialble items to Social media
+    con ->> med : Knows availability of items.
+    com ->> prod : Contact Producer to get item
 ```

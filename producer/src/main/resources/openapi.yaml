@@ -1,8 +1,7 @@
 openapi: 3.0.3
 info:
   title: Swagger TechForLife - OpenAPI 3.0
-  description: |-
-    APIs to integrate to make use TechForLife
+  description: APIs to integrate to make use TechForLife
   termsOfService: http://swagger.io/terms/
   contact:
     email: apiteam@swagger.io
@@ -48,7 +47,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Producer'          
+                $ref: '#/components/schemas/Producer'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Producer'
@@ -62,7 +61,7 @@ paths:
       tags:
         - producer
       summary: Get all producers
-      description: 'Get all producers'
+      description: Get all producers
       operationId: getAllProducers
       responses:
         '200':
@@ -70,7 +69,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Producers'          
+                $ref: '#/components/schemas/Producers'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Producers'
@@ -78,49 +77,49 @@ paths:
           description: Invalid username supplied
         '404':
           description: User not found
-  /producer/search:    
+  /producer/search:
     get:
-          tags:
-            - producer
-          summary: Serarch producers
-          description: 'Serarch producers'
-          operationId: searchProducers
-          parameters:
-            - name: name
-              in: query
-              description: Name of the producers
-              required: false
-              schema:
-                type: string
-            - name: street
-              in: query
-              description: Exact Street address of the producers
-              required: false
-              schema:
-                type: string  
-            - name: city
-              in: query
-              description: Exact city of the producers
-              required: false
-              schema:
-                type: string                                        
+      tags:
+        - producer
+      summary: Serarch producers
+      description: Serarch producers
+      operationId: searchProducers
+      parameters:
+        - name: name
+          in: query
+          description: Name of the producers
+          required: false
+          schema:
+            type: string
+        - name: street
+          in: query
+          description: Exact Street address of the producers
+          required: false
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: Exact city of the producers
+          required: false
+          schema:
+            type: string
 
-          responses:
-            '200':
-              description: successful operation
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Producers'          
-                application/xml:
-                  schema:
-                    $ref: '#/components/schemas/Producers'
-            '400':
-              description: Invalid username supplied
-            '404':
-              description: User not found
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producers'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Producers'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found
 
-  /producer/{id}:    
+  /producer/{id}:
     get:
       tags:
         - producer
@@ -140,20 +139,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Producer'          
+                $ref: '#/components/schemas/Producer'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Producer'
         '400':
           description: Invalid producer id supplied
         '404':
-          description: Producer not found            
+          description: Producer not found
 
     put:
       tags:
         - producer
       summary: Update producer with given id
-      description: 'Update producer with given id'
+      description: Update producer with given id
       operationId: updateProducerById
       parameters:
         - name: id
@@ -168,7 +167,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Producer'          
+                $ref: '#/components/schemas/Producer'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Producer'
@@ -181,7 +180,7 @@ paths:
       tags:
         - producer
       summary: Delete producer with given id
-      description: 'Delete producer with given id'
+      description: Delete producer with given id
       operationId: deleteProducerById
       parameters:
         - name: id
@@ -196,7 +195,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Producer'          
+                $ref: '#/components/schemas/Producer'
             application/xml:
               schema:
                 $ref: '#/components/schemas/Producer'
@@ -206,32 +205,32 @@ paths:
           description: Producer not found
 components:
   schemas:
-    Producers :
+    Producers:
       type: array
-      items : 
-        type : object
-        $ref: '#/components/schemas/Producer' 
-    Producer :
+      items:
+        type: object
+        $ref: '#/components/schemas/Producer'
+    Producer:
       type: object
-      properties :
-        id : 
+      properties:
+        id:
           type: integer
           format: int64
           example: 10000
-        name : 
+        name:
           type: string
           example: fehguy
-        address : 
+        address:
           type: object
-          $ref: '#/components/schemas/Address' 
+          $ref: '#/components/schemas/Address'
         officialRegistrationNumber:
           type: integer
           format: int64
           example: 123456789
-        onboardingStartDate :
+        onboardingStartDate:
           type: string
           format: date
-        onboardingEndDate :
+        onboardingEndDate:
           type: string
           format: date
         phoneNumber:
@@ -250,4 +249,3 @@ components:
         postalcode:
           type: string
           example: '94301'
-
