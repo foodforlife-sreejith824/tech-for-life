@@ -1,0 +1,17 @@
+@startuml app-arch
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+Person(producers, "Food Producers", "")
+System(foodForLife, "Food for life Platform", "Producers publish items here publish the same in social media.")
+System_Ext(socialMedia, "Social Media", "Social Media pages")
+Person(consumers, "Consumers", "Get to know about items from Social media.")
+
+Rel(producers, foodForLife, "Onboard as a Producer")
+Rel(producers, foodForLife, "Publish items")
+Rel(foodForLife, socialMedia, "Publish items")
+Rel(consumers, socialMedia, "Know about items")
+Rel(consumers, foodForLife, "Order required items")
+Rel(consumers, producers, "Collect requested items from producer")
+@enduml
+

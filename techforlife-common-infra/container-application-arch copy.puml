@@ -1,0 +1,86 @@
+@startuml app-arch
+
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Person(producers, "Food Producers", "")
+
+Container_Boundary(foodForLife, "Food For Life Platform") {
+    Container(producerRegistartion, "Producer Registration Process") {
+        Component(producerRegistrationForm, "Producer Registration Form", "Webform")
+        Component(producerRegistrationApi, "Producer Registration API", "REST API")
+        ComponentDb(producerOidc, "Producer OIDC")
+        Component(producerSignupForm, "Producer SignUp Form", "SignUp with social media or email")
+        Component(producerSignupApi, "Producer SignUp API", "REST API")
+        ComponentDb(producerDB, "Producer Database", "RDBMS")
+    }
+    Container(publishItems, "Publish Items Process") {
+        Component(addItemForm, "Add/Update/Delete Items Form", "Webform")
+        Component(publishItemAPI, "Publish Items API", "REST API")
+    }
+
+    Container(cosumerRegistartion, "Consumer Registration Process") {
+        Component(consumerSignupForm, "Consumer SignUp Form", "SignUp with social media or email")
+        Component(consumerSignupApi, "Consumer SignUp API", "REST API")
+        ComponentDb(consumerOidc, "Consumer OIDC")
+    }
+
+    Container(orderItems, "Order Items Process") {
+        Component(orderItemForm, "Order Items Form", "Webform")
+        Component(orderItemAPI, "Order Items API", "REST API")
+    }
+
+    Container(eventHub, "Event hub") {
+        ComponentQueue(itemsQueue, "Publish Item Events", "Event hub")
+        ComponentQueue(orderItemsQueue, "Order Item Events", "Event hub")
+    }
+
+    Container(inventoryManagement, "Inventory Management") {
+        Component(publishItemListener, "Publish Items Listener", "Event listener")
+        Component(orderItemsListener, "Order Items Listener", "Event listener")
+        ComponentDb(itemsDB, "Items Database", "RDBMS")
+        Component(smConnector, "Connector to Social Media", "API Client")
+    }
+
+}
+System_Ext(idp, "IDP") {
+    Container_Ext(googleIdp, "Google as IDP")
+    Container_Ext(facebookIdp, "Facebook as IDP")
+}
+System_Ext(socialMedia, "Social Media", "Social Media pages")
+Person(consumers, "Consumers", "Get to know about items from Social media.")
+
+Rel(producers, producerSignupForm, "Onboard as a Producer" , "Email & mobile number")
+Rel(producerSignupForm, producerSignupApi, "Create Producer")
+Rel(producerSignupApi, producerOidc, "", "OAuth 2")
+Rel(producerOidc, idp, "", "OAuth 2")
+Rel(producerSignupApi, producerDB, "Create Producer", "")
+
+Rel(producers, producerRegistrationForm, "Register as a Producer")
+Rel(producerRegistrationForm, producerRegistrationApi, "Update producer")
+Rel(producerRegistrationApi, producerDB, "Update Producer", "")
+
+Rel(producers, addItemForm, "Publish items")
+Rel(addItemForm, publishItemAPI, "CRUD API")
+Rel(publishItemAPI, itemsQueue, "Publish Events")
+Rel(itemsQueue, publishItemListener, "Listens Events")
+Rel(publishItemListener, itemsDB, "Update inventory")
+Rel(publishItemListener, smConnector, "Publish required events to Social Media")
+
+Rel(smConnector, socialMedia, "Publish items")
+Rel(socialMedia, consumers, "Notify consumers")
+
+Rel(consumers, consumerSignupForm, "Sign Up")
+Rel(consumerSignupForm, consumerSignupApi, "Sign Up")
+Rel(consumerSignupApi, consumerOidc, "OAuth 2")
+Rel(consumerOidc, idp, "", "OAuth 2")
+
+Rel(consumers, orderItemForm, "Order Items", "Web form")
+Rel(orderItemForm, orderItemAPI, "Order Items", "REST API")
+Rel(orderItemAPI, orderItemsQueue, "Publish Order Items", "Publish Events")
+Rel(orderItemsQueue, orderItemsListener, "Listens Events")
+Rel(orderItemsListener, itemsDB, "Update inventory")
+
+Rel(consumers, producers, "Collect requested items from producer", "Manual")
+
+@enduml
+
