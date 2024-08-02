@@ -1,6 +1,6 @@
 # techforlife
 
-## Use casse - Mind Map
+## Mind Map
 
 ```mermaid
 mindmap
@@ -42,22 +42,5 @@ mindmap
         Distributors ((Distributors))        
 
 ```
-
-## Phase 1 - Social Media
-
-```mermaid
-
-sequenceDiagram
-    autonumber
-    participant prod as Food Producer
-    participant sys as TechForLife
-    participant med as Social media
-    participant con as Food Consumer
-
-    prod ->>+ sys : Register as a Producer
-    prod ->>+ sys : Onboard Producer with Address and Domains (meal/grocery/bakery)
-    prod ->>+ sys : Publish Items to sell : Items, quantity, Price, Promotions    
-    sys ->> med : Publish avaialble items to Social media
-    con ->> med : Knows availability of items.
-    com ->> prod : Contact Producer to get item
-```
+## Reference
+https://chatgpt.com/share/f8eed893-1ccb-4f4e-bcfb-5788a989cb18
