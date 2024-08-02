@@ -1,4 +1,4 @@
-@startuml VPC
+@startuml deployment
 ' Uncomment the line below for "dark mode" styling
 '!$AWS_DARK = true
 

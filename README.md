@@ -46,8 +46,8 @@ mindmap
 [Phase 1](phase-1.md)
 
 ## Architecture
-- [Context Diagram](docs/context-application-arch.png)
-- [Component Diagram](docs/application-arch.png)
+- [Context Diagram](out/docs/c4-context-diagram/c4-context-diagram.png)
+- [Component Diagram](out/docs/c4-component-diagram/c4-component-diagram.png)
 
 
 ## Reference
