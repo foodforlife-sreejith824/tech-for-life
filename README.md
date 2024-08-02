@@ -42,6 +42,14 @@ mindmap
         Distributors ((Distributors))        
 
 ```
+## Phase 1
+[Phase 1](phase-1.md)
+
+## Architecture
+- [Context Diagram](docs/context-application-arch.png)
+- [Component Diagram](docs/application-arch.png)
+
+
 ## Reference
-https://chatgpt.com/share/f8eed893-1ccb-4f4e-bcfb-5788a989cb18
-https://chatgpt.com/share/e2f68719-e0a4-468d-bb91-62626fe3f51d
+- https://chatgpt.com/share/f8eed893-1ccb-4f4e-bcfb-5788a989cb18
+- https://chatgpt.com/share/e2f68719-e0a4-468d-bb91-62626fe3f51d

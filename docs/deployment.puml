@@ -1,0 +1,51 @@
+@startuml VPC
+' Uncomment the line below for "dark mode" styling
+'!$AWS_DARK = true
+
+!define AWSPuml https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v18.0/dist
+!include AWSPuml/AWSCommon.puml
+!include AWSPuml/AWSSimplified.puml
+!include AWSPuml/Groups/AWSCloud.puml
+!include AWSPuml/Groups/VPC.puml
+!include AWSPuml/Groups/AvailabilityZone.puml
+!include AWSPuml/Groups/PublicSubnet.puml
+!include AWSPuml/Groups/PrivateSubnet.puml
+!include AWSPuml/NetworkingContentDelivery/VPCNATGateway.puml
+!include AWSPuml/NetworkingContentDelivery/VPCInternetGateway.puml
+!include AWSPuml/NetworkingContentDelivery/ElasticLoadBalancingApplicationLoadBalancer.puml
+!include AWSPuml/Groups/AWSAccount.puml
+!include AWSPuml/Containers/EKSAnywhere.puml
+!include AWSPuml/NetworkingContentDelivery/CloudFront.puml
+!include AWSPuml/SecurityIdentityCompliance/WAF.puml
+!include AWSPuml/SecurityIdentityCompliance/Shield.puml
+
+hide stereotype
+skinparam linetype ortho
+
+AWSCloudGroup(cloud) {
+    AWSAccountGroup(foorforlifeAccount, "foorforlife") {
+         CloudFront(cdn, "Cloud front", "")
+         WAF(waf, "WAF", "")
+         Shield(shield, "Shield", "")
+        VPCGroup(vpc) {
+            VPCInternetGateway(internet_gateway, "Internet gateway", "")
+
+            AvailabilityZoneGroup(az_1, "\tAvailability Zone 1\t") {
+                PublicSubnetGroup(publicSubnet, "Public subnet") {
+                    VPCNATGateway(natGateway, "NAT gateway", "") #Transparent
+                    ElasticLoadBalancingApplicationLoadBalancer(alb, "App Load Balancer", "")
+                }
+                PrivateSubnetGroup(az_1_private, "Private subnet") {
+                    EKSAnywhere(eks, "EKS Cluster", "")
+                }
+                cdn -> waf
+                cdn -> shield
+                cdn --> alb
+                alb --> eks
+                eks --> natGateway
+            }  
+        }
+    }
+
+}
+@enduml
