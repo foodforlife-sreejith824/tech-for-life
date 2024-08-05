@@ -18,34 +18,58 @@
 !include AWSPuml/NetworkingContentDelivery/CloudFront.puml
 !include AWSPuml/SecurityIdentityCompliance/WAF.puml
 !include AWSPuml/SecurityIdentityCompliance/Shield.puml
+!include AWSPuml/Storage/SimpleStorageServiceS3Standard.puml
+!include AWSPuml/General/DataStream.puml
+!include AWSPuml/Database/AuroraPostgreSQLInstance.puml
+!include AWSPuml/SecurityIdentityCompliance/Cognito.puml
+!include AWSPuml/General/AuthenticatedUser.puml
+!include AWSPuml/Containers/ECSAnywhere.puml
+!include AWSPuml/General/Users.puml
+!include AWSPuml/General/Globe.puml
 
 hide stereotype
 skinparam linetype ortho
 
 AWSCloudGroup(cloud) {
     AWSAccountGroup(foorforlifeAccount, "foorforlife") {
-         CloudFront(cdn, "Cloud front", "")
-         WAF(waf, "WAF", "")
-         Shield(shield, "Shield", "")
+        CloudFront(cdn, "Cloud front", "")
+        WAF(waf, "WAF", "")
+        Shield(shield, "Shield", "")
+        SimpleStorageServiceS3Standard(spa, "SPA", "S3")
+        Cognito(cognito, "Cognito as OIDC", "Cognito")
         VPCGroup(vpc) {
             VPCInternetGateway(internet_gateway, "Internet gateway", "")
-
             AvailabilityZoneGroup(az_1, "\tAvailability Zone 1\t") {
                 PublicSubnetGroup(publicSubnet, "Public subnet") {
                     VPCNATGateway(natGateway, "NAT gateway", "") #Transparent
                     ElasticLoadBalancingApplicationLoadBalancer(alb, "App Load Balancer", "")
                 }
-                PrivateSubnetGroup(az_1_private, "Private subnet") {
+                PrivateSubnetGroup(privateSN, "Private subnet") {
                     EKSAnywhere(eks, "EKS Cluster", "")
+                    AuroraPostgreSQLInstance(postgreSql, "PostgreSQL", "")
                 }
-                cdn -> waf
-                cdn -> shield
-                cdn --> alb
-                alb --> eks
-                eks --> natGateway
-            }  
+            }
         }
+        ECSAnywhere(ecs, "ECS Registry", "")
     }
-
 }
+
+DataStream(confluentKafka, "Confluent Kafka", "")
+AuthenticatedUser(idp, "Social media - IDP", "")
+Users(socialMedia, "Social media", "")
+Globe(goDaddy, "Go Daddy - Custom Domain", "")
+
+cdn .> waf
+cdn .> shield
+cdn --> alb
+alb --> eks
+alb .> cognito
+eks --> confluentKafka
+eks -> postgreSql
+eks --> spa
+cognito --> idp
+eks --> ecs
+eks --> socialMedia
+goDaddy --> cdn
+
 @enduml
