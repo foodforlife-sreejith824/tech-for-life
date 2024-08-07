@@ -10,19 +10,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Checkout code and move to infra dir
+        run: cd infrastructure/cdkCore
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '16'  # or any other version you are using
-
-      - name: Infra dir          
-        script:
-          - cd infrastructure/cdkCore
-          - pwd
-
       - name: Install dependencies
         run: npm install
 
