@@ -1,4 +1,4 @@
-# techforlife
+# tech-for-life
 
 ## Mind Map
 
@@ -57,3 +57,4 @@ mindmap
 - [EKS to Confluent Kafka Cloud Connectivity](https://chatgpt.com/share/a3bb2d63-d77f-484c-8a19-920183efdee7)
 - [Cognito and Google as IDP](https://chatgpt.com/share/a3bb2d63-d77f-484c-8a19-920183efdee7)
 - [Cognito and ALB](https://chatgpt.com/share/a3bb2d63-d77f-484c-8a19-920183efdee7)
+- [CDK Deployment using GitHub Actions](https://chatgpt.com/share/3ea47403-ac0c-4259-9a59-8a7d5ffabb95) 
