@@ -11,15 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Checkout code and move to infra dir
-        run: cd infrastructure/cdk-core
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'  # or any other version you are using
       - name: Install dependencies
-        run: npm install
+        run: cd infrastructure/cdk-core && npm install
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
