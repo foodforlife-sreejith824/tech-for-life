@@ -29,5 +29,5 @@ jobs:
       - name: Install AWS CDK
         run: npm install -g aws-cdk
 
-      - name: Deploy CDK app
-        run: cdk synth --app "npx ts-node bin/cdkCore.ts" techforlife-app && cdk deploy --require-approval never
+      - name: Deploy CDK app 
+        run: cdk synth --app bin/core-app
