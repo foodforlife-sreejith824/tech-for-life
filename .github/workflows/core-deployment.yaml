@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Checkout code and move to infra dir
-        run: cd infrastructure/cdkCore
+        run: cd infrastructure/cdk-core
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
