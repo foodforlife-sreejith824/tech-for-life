@@ -30,4 +30,4 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Deploy CDK app 
-        run: cdk synth --app bin/core-app
+        run: cdk synth --app "npx ts-node --prefer-ts-exts bin/core-app.ts"
