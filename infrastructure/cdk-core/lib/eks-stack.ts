@@ -12,10 +12,12 @@ export class EKSStack extends Stack {
 
         // Look up the existing VPC by ID or name
     
-        console.log
-        const vpc = ec2.Vpc.fromLookup(this, 'VPC', {
-            vpcId: param.prefix.concat('-vpcId')
-        });
+        const vpc = ec2.Vpc.fromVpcAttributes(this, 'ImportedVpc', {
+            vpcId: cdk.Fn.importValue('VpcId'),
+            availabilityZones: cdk.Fn.split(',', cdk.Fn.importValue('AvailabilityZones')),
+            publicSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PublicSubnetIds'), 1),
+            privateSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PrivateSubnetIds'), 1),
+          });
 
         // Define the subnets to use (private subnets)
         const privateSubnets = vpc.selectSubnets({

@@ -27,10 +27,19 @@ export class VPCStack extends cdk.Stack {
             ],
         });
 
-        new cdk.CfnOutput(this, 'vpcId', {
+        new cdk.CfnOutput(this, 'VpcId', {
             value: this.vpc.vpcId,
             description: 'The VPC ID',
             exportName: param.prefix.concat('-vpcId'),
+        });
+        new cdk.CfnOutput(this, 'PublicSubnetIds', {
+            value: this.vpc.publicSubnets.map(subnet => subnet.subnetId).join(','),
+        });
+        new cdk.CfnOutput(this, 'PrivateSubnetIds', {
+            value: this.vpc.privateSubnets.map(subnet => subnet.subnetId).join(','),
+        });
+        new cdk.CfnOutput(this, 'AvailabilityZones', {
+            value: this.vpc.availabilityZones.join(','),
         });
 
     }
