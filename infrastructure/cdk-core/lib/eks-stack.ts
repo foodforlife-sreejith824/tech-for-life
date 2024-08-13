@@ -15,14 +15,9 @@ export class EKSStack extends Stack {
         const vpc = ec2.Vpc.fromVpcAttributes(this, 'ImportedVpc', {
             vpcId: cdk.Fn.importValue('VpcId'),
             availabilityZones: cdk.Fn.split(',', cdk.Fn.importValue('AvailabilityZones')),
-            publicSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PublicSubnetIds'), 1),
-            privateSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PrivateSubnetIds'), 1),
+            publicSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PublicSubnetIds')),
+            privateSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PrivateSubnetIds')),
           });
-
-        // Define the subnets to use (private subnets)
-        const privateSubnets = vpc.selectSubnets({
-            subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
-        });
 
         // Create an EKS cluster
         const cluster = new eks.Cluster(this, param.prefix.concat('-eks'), {
@@ -40,7 +35,7 @@ export class EKSStack extends Stack {
                 { namespace: 'default' },
                 { namespace: 'kube-system' },
             ],
-            subnetSelection : privateSubnets
+            vpc
         });
     }
 }
