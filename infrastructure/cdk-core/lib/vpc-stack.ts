@@ -12,7 +12,7 @@ export class VPCStack extends cdk.Stack {
             ipAddresses: ec2.IpAddresses.cidr(param.vpc_cidr),
             vpcName: param.prefix.concat('-vpc'),
             natGateways: 1,
-            maxAzs: 2,
+            maxAzs: 3,
             subnetConfiguration: [
                 {
                     name: param.prefix.concat('-private-subnet-1'),

@@ -15,8 +15,8 @@ export class EKSStack extends Stack {
         const vpc = ec2.Vpc.fromVpcAttributes(this, 'ImportedVpc', {
             vpcId: cdk.Fn.importValue('VpcId'),
             availabilityZones: cdk.Fn.split(',', cdk.Fn.importValue('AvailabilityZones')),
-            publicSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PublicSubnetIds')),
-            privateSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PrivateSubnetIds')),
+            publicSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PublicSubnetIds'), 1),
+            privateSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PrivateSubnetIds'), 1),
           });
 
         // Create an EKS cluster
