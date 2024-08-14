@@ -2,23 +2,13 @@ import * as cdk from 'aws-cdk-lib';
 import { Stack, StackProps } from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as eks from 'aws-cdk-lib/aws-eks';
-import * as iam from 'aws-cdk-lib/aws-iam';
-import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as param from '../props/params.json'
+import { Construct } from 'constructs';
+import console = require('console');
 
 export class EKSStack extends Stack {
-    constructor(scope: cdk.App, id: string, props?: StackProps) {
+    constructor(scope: Construct, id: string, vpc: ec2.Vpc, props?: cdk.StackProps) {
         super(scope, id, props);
-
-        // Look up the existing VPC by ID or name
-    
-        const vpc = ec2.Vpc.fromVpcAttributes(this, 'ImportedVpc', {
-            vpcId: cdk.Fn.importValue('VpcId'),
-            availabilityZones: cdk.Fn.split(',', cdk.Fn.importValue('AvailabilityZones')),
-            publicSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PublicSubnetIds'), 1),
-            privateSubnetIds: cdk.Fn.split(',', cdk.Fn.importValue('PrivateSubnetIds'), 1),
-          });
-
         // Create an EKS cluster
         const cluster = new eks.Cluster(this, param.prefix.concat('-eks'), {
             vpc: vpc,
